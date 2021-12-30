@@ -37,8 +37,8 @@
       ]
     },
     "/home/hussain/projects/epic-nfts/contracts/MyEpicNFT.sol": {
-      "lastModificationDate": 1639012086337,
-      "contentHash": "23f37b069535adadf92d48b98748b1bf",
+      "lastModificationDate": 1640805120314,
+      "contentHash": "bc80b1704a3fafbc8717af387ae68470",
       "sourceName": "contracts/MyEpicNFT.sol",
       "solcConfig": {
         "version": "0.8.0",

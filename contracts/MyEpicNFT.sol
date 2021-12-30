@@ -18,6 +18,9 @@ contract MyEpicNFT is ERC721URIStorage {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
 
+  Counters.Counter private _nftsMinted;
+  
+
   // This is our SVG code. All we need to change is the word that's displayed. Everything else stays the same.
   // So, we make a baseSvg variable here that all our NFTs can use.
   string svgPartOne = "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='";
@@ -72,7 +75,12 @@ contract MyEpicNFT is ERC721URIStorage {
 
   // A function our user will hit to get their NFT.
   function makeAnEpicNFT() public {
-     // Get the current tokenId, this starts at 0.
+
+    uint256 newNftMinted = _nftsMinted.current();
+
+    require(newNftMinted < 50, 'Allow to Only Mint 50NFTs ');
+    
+    // Get the current tokenId, this starts at 0.
     uint256 newItemId = _tokenIds.current();
 
     // We go and randomly grab one word from each of the three arrays.
@@ -80,6 +88,8 @@ contract MyEpicNFT is ERC721URIStorage {
     string memory second = pickRandomSecondWord(newItemId);
     string memory third = pickRandomThirdWord(newItemId);
     string memory combinedWord = string(abi.encodePacked(first, second, third));
+
+    string memory randomColor = pickRandomColor(newItemId);
 
     // I concatenate it all together, and then close the <text> and <svg> tags.
     string memory finalSvg = string(abi.encodePacked(svgPartOne, randomColor, svgPartTwo, combinedWord, "</text></svg>"));
@@ -126,9 +136,16 @@ contract MyEpicNFT is ERC721URIStorage {
     // Increment the counter for when the next NFT is minted.
     _tokenIds.increment();
 
+    _nftsMinted.increment();
+
     console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
 
     emit NewEpicNFTMinted(msg.sender, newItemId);
 
   }
+
+  function totalNftsMinted()public view returns(uint256){
+
+    return _nftsMinted._value;
+  } 
 }
