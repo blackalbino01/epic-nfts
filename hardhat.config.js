@@ -1,7 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 
-const ROPSTEN_PRIVATE_KEY = "849db332c416240a0c30d59468a7e9cdfe6bd1dae2f747afd42bbec19354e0f2";
-const ALCHEMY_API = 'S58Ui7HqShKXXE7D2Mi83Ue9L4KH3jRu';
+const ROPSTEN_PRIVATE_KEY = "";
+const ALCHEMY_API = '';
 
 module.exports = {
   solidity: '0.8.0',
